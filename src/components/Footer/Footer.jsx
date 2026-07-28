@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { FacebookIcon, InstagramIcon, TwitterIcon, LinkedInIcon } from "../icons/index.jsx";
 export default function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-300 mt-16">
@@ -11,10 +11,10 @@ export default function Footer() {
           </div>
           <p className="text-sm">Discover, book & save at the best local businesses around you.</p>
           <div className="flex gap-3 mt-4 text-lg">
-            <a href="#" aria-label="Facebook" className="hover:text-brand"><FaFacebook /></a>
-            <a href="#" aria-label="Instagram" className="hover:text-brand"><FaInstagram /></a>
-            <a href="#" aria-label="Twitter" className="hover:text-brand"><FaTwitter /></a>
-            <a href="#" aria-label="LinkedIn" className="hover:text-brand"><FaLinkedin /></a>
+            <a href="#" aria-label="Facebook" className="hover:text-brand"><FacebookIcon className="w-5 h-5" /></a>
+            <a href="#" aria-label="Instagram" className="hover:text-brand"><InstagramIcon className="w-5 h-5" /></a>
+            <a href="#" aria-label="Twitter" className="hover:text-brand"><TwitterIcon className="w-5 h-5" /></a>
+            <a href="#" aria-label="LinkedIn" className="hover:text-brand"><LinkedInIcon className="w-5 h-5" /></a>
           </div>
         </div>
         <div>

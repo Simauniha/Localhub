@@ -11,6 +11,7 @@ import { CATEGORIES } from "../utils/constants.js";
 import listingService from "../services/listingService.js";
 import dealService from "../services/dealService.js";
 import eventService from "../services/eventService.js";
+import { TagIcon, TicketIcon } from "../components/icons/index.jsx";
 const testimonials = [
   { name: "Aarav S.", role: "Foodie", text: "Found the best pizza in town — and got 50% off!", avatar: "A" },
   { name: "Meera K.", role: "Student", text: "Booked my coding bootcamp with a BOGO deal. Life-saver.", avatar: "M" },
@@ -61,7 +62,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <h2 className="text-3xl font-extrabold">🏷️ Featured deals</h2>
+              <h2 className="text-3xl font-extrabold flex items-center gap-2"><TagIcon className="w-7 h-7 text-rose-500" /> Featured deals</h2>
               <p className="text-slate-500 mt-1">Fresh offers, updated daily.</p>
             </div>
             <Link to="/deals" className="text-sm text-brand font-semibold">See all →</Link>
@@ -91,16 +92,16 @@ export default function Home() {
       {/* Coaching + Transport banners */}
       <section className="max-w-7xl mx-auto px-4 pb-16 grid md:grid-cols-2 gap-6">
         <Link to="/listings?category=coaching" className="card-hover rounded-3xl p-8 bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white">
-          <div className="text-sm opacity-90">Coaching institutes</div>
+          <div className="text-sm opacity-90 font-medium">Coaching institutes</div>
           <div className="text-3xl font-extrabold mt-2">Level up your career</div>
           <p className="opacity-90 mt-2">Top-rated coaching centers with student discounts.</p>
-          <span className="mt-4 inline-block btn-ghost text-slate-900">Explore →</span>
+          <span className="mt-6 inline-flex items-center gap-2 bg-white text-indigo-700 hover:bg-slate-100 font-bold px-6 py-3 rounded-xl shadow-md transition-all">Explore →</span>
         </Link>
         <Link to="/listings?category=transport" className="card-hover rounded-3xl p-8 bg-gradient-to-br from-sky-500 to-indigo-600 text-white">
-          <div className="text-sm opacity-90">Transport</div>
+          <div className="text-sm opacity-90 font-medium">Transport</div>
           <div className="text-3xl font-extrabold mt-2">Get anywhere fast</div>
           <p className="opacity-90 mt-2">Cabs, autos & rentals — with member perks.</p>
-          <span className="mt-4 inline-block btn-ghost text-slate-900">Book now →</span>
+          <span className="mt-6 inline-flex items-center gap-2 bg-white text-indigo-700 hover:bg-slate-100 font-bold px-6 py-3 rounded-xl shadow-md transition-all">Book now →</span>
         </Link>
       </section>
       {/* Upcoming events */}
@@ -108,7 +109,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <h2 className="text-3xl font-extrabold">🎉 Upcoming events</h2>
+              <h2 className="text-3xl font-extrabold flex items-center gap-2"><TicketIcon className="w-7 h-7 text-fuchsia-500" /> Upcoming events</h2>
               <p className="text-slate-500 mt-1">Concerts, meetups & festivals near you.</p>
             </div>
             <Link to="/events" className="text-sm text-brand font-semibold">See all →</Link>
@@ -145,8 +146,8 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-extrabold">Get the LocalHub app</h2>
             <p className="opacity-90 mt-3">Faster booking, exclusive app-only deals, and instant QR redemption.</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#" className="bg-black/30 hover:bg-black/40 backdrop-blur px-5 py-3 rounded-xl font-semibold">📱 App Store</a>
-              <a href="#" className="bg-black/30 hover:bg-black/40 backdrop-blur px-5 py-3 rounded-xl font-semibold">🤖 Google Play</a>
+              <a href="#" className="bg-black/30 hover:bg-black/40 backdrop-blur px-5 py-3 rounded-xl font-semibold">App Store</a>
+              <a href="#" className="bg-black/30 hover:bg-black/40 backdrop-blur px-5 py-3 rounded-xl font-semibold">Google Play</a>
             </div>
           </div>
           <div className="text-center text-8xl md:text-9xl">📲</div>

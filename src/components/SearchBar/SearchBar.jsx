@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiSearch, FiMapPin } from "react-icons/fi";
+import { SearchIcon, MapPinIcon } from "../icons/index.jsx";
 export default function SearchBar({ compact = false }) {
   const [q, setQ] = useState("");
   const [loc, setLoc] = useState("Bengaluru");
@@ -12,7 +12,7 @@ export default function SearchBar({ compact = false }) {
   return (
     <form onSubmit={onSubmit} className={"flex flex-col sm:flex-row gap-2 p-2 rounded-2xl bg-white dark:bg-slate-800 shadow-xl " + (compact ? "" : "border border-white/50 dark:border-slate-700")}>
       <div className="flex items-center flex-1 px-3 gap-2">
-        <FiSearch className="text-slate-400" />
+        <SearchIcon className="w-5 h-5 text-slate-400 shrink-0" />
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
@@ -21,7 +21,7 @@ export default function SearchBar({ compact = false }) {
         />
       </div>
       <div className="flex items-center px-3 gap-2 sm:border-l border-slate-200 dark:border-slate-700">
-        <FiMapPin className="text-slate-400" />
+        <MapPinIcon className="w-5 h-5 text-slate-400 shrink-0" />
         <input
           value={loc}
           onChange={(e) => setLoc(e.target.value)}

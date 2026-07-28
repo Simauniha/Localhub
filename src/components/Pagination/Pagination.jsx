@@ -1,4 +1,4 @@
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { ChevronLeftIcon, ChevronRightIcon } from "../icons/index.jsx";
 export default function Pagination({ page = 1, totalPages = 1, onChange }) {
   if (totalPages <= 1) return null;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -8,8 +8,9 @@ export default function Pagination({ page = 1, totalPages = 1, onChange }) {
         onClick={() => onChange?.(Math.max(1, page - 1))}
         className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-40"
         disabled={page === 1}
+        aria-label="Previous page"
       >
-        <FiChevronLeft />
+        <ChevronLeftIcon className="w-5 h-5" />
       </button>
       {pages.map((p) => (
         <button
@@ -27,8 +28,9 @@ export default function Pagination({ page = 1, totalPages = 1, onChange }) {
         onClick={() => onChange?.(Math.min(totalPages, page + 1))}
         className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 disabled:opacity-40"
         disabled={page === totalPages}
+        aria-label="Next page"
       >
-        <FiChevronRight />
+        <ChevronRightIcon className="w-5 h-5" />
       </button>
     </div>
   );

@@ -61,15 +61,19 @@ export default function Listings() {
           onClick={() => setCategory("all")}
           className={"chip px-4 py-2 rounded-full text-sm font-semibold " + (category === "all" ? "bg-brand-gradient text-white" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700")}
         >All</button>
-        {CATEGORIES.map((c) => (
-          <button
-            key={c.id}
-            onClick={() => setCategory(c.id)}
-            className={"chip px-4 py-2 rounded-full text-sm font-semibold " + (category === c.id ? "bg-brand-gradient text-white" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700")}
-          >
-            {c.icon} {c.name}
-          </button>
-        ))}
+        {CATEGORIES.map((c) => {
+          const Icon = c.icon;
+          return (
+            <button
+              key={c.id}
+              onClick={() => setCategory(c.id)}
+              className={"chip px-4 py-2 rounded-full text-sm font-semibold inline-flex items-center gap-2 " + (category === c.id ? "bg-brand-gradient text-white" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200")}
+            >
+              {Icon && <Icon className="w-4 h-4 shrink-0" />}
+              <span>{c.name}</span>
+            </button>
+          );
+        })}
       </div>
       <div className="mt-8">
         {loading ? <Loader /> : (

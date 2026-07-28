@@ -5,6 +5,7 @@ import Loader from "../components/Loader/Loader.jsx";
 import useAuth from "../hooks/useAuth.js";
 import partnerService from "../services/partnerService.js";
 import { formatCurrency } from "../utils/helpers.js";
+import { TagIcon, DollarIcon, CalendarIcon, StarIcon } from "../components/icons/index.jsx";
 export default function Dashboard() {
   const { user } = useAuth();
   const [stats, setStats] = useState(null);
@@ -15,10 +16,10 @@ export default function Dashboard() {
       <h1 className="text-3xl font-extrabold">Welcome back, {user?.name?.split(" ")[0]} 👋</h1>
       <p className="text-slate-500 mt-1">Here's what's happening in your account today.</p>
       <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <AnalyticsCard label="Total redemptions" value={stats.redemptions} delta={12} icon="🏷️" tone="rose" />
-        <AnalyticsCard label="Total savings" value={formatCurrency(stats.revenue / 4)} delta={8} icon="💰" tone="emerald" />
-        <AnalyticsCard label="Bookings" value="24" delta={-3} icon="📅" tone="sky" />
-        <AnalyticsCard label="Loyalty points" value="1,240" delta={22} icon="⭐" tone="amber" />
+        <AnalyticsCard label="Total redemptions" value={stats.redemptions} delta={12} icon={<TagIcon className="w-5 h-5" />} tone="rose" />
+        <AnalyticsCard label="Total savings" value={formatCurrency(stats.revenue / 4)} delta={8} icon={<DollarIcon className="w-5 h-5" />} tone="emerald" />
+        <AnalyticsCard label="Bookings" value="24" delta={-3} icon={<CalendarIcon className="w-5 h-5" />} tone="sky" />
+        <AnalyticsCard label="Loyalty points" value="1,240" delta={22} icon={<StarIcon className="w-5 h-5" />} tone="amber" />
       </div>
       <div className="mt-8 grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700">

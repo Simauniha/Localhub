@@ -3,6 +3,7 @@ import AnalyticsCard from "../components/AnalyticsCard/AnalyticsCard.jsx";
 import Loader from "../components/Loader/Loader.jsx";
 import partnerService from "../services/partnerService.js";
 import { formatCurrency } from "../utils/helpers.js";
+import { DollarIcon, TagIcon, EyeIcon, StarIcon } from "../components/icons/index.jsx";
 export default function PartnerDashboard() {
   const [stats, setStats] = useState(null);
   useEffect(() => { partnerService.stats().then(setStats); }, []);
@@ -13,10 +14,10 @@ export default function PartnerDashboard() {
       <h1 className="text-3xl font-extrabold">Partner Hub</h1>
       <p className="text-slate-500 mt-1">Track redemptions, revenue & customer insights.</p>
       <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <AnalyticsCard label="Revenue (this month)" value={formatCurrency(stats.revenue)} delta={14} icon="💰" tone="emerald" />
-        <AnalyticsCard label="Redemptions" value={stats.redemptions} delta={9} icon="🏷️" tone="rose" />
-        <AnalyticsCard label="Listing views" value={stats.views.toLocaleString()} delta={22} icon="👁️" tone="sky" />
-        <AnalyticsCard label="Avg. rating" value={stats.rating} delta={2} icon="⭐" tone="amber" />
+        <AnalyticsCard label="Revenue (this month)" value={formatCurrency(stats.revenue)} delta={14} icon={<DollarIcon className="w-5 h-5" />} tone="emerald" />
+        <AnalyticsCard label="Redemptions" value={stats.redemptions} delta={9} icon={<TagIcon className="w-5 h-5" />} tone="rose" />
+        <AnalyticsCard label="Listing views" value={stats.views.toLocaleString()} delta={22} icon={<EyeIcon className="w-5 h-5" />} tone="sky" />
+        <AnalyticsCard label="Avg. rating" value={stats.rating} delta={2} icon={<StarIcon className="w-5 h-5" />} tone="amber" />
       </div>
       <div className="mt-8 grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700">

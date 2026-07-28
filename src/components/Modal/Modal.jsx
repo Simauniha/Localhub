@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { FiX } from "react-icons/fi";
+import { CloseIcon } from "../icons/index.jsx";
 export default function Modal({ open, onClose, title, children, footer }) {
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && onClose?.();
@@ -12,7 +12,7 @@ export default function Modal({ open, onClose, title, children, footer }) {
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
           <h3 className="font-bold text-lg">{title}</h3>
-          <button onClick={onClose} className="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"><FiX /></button>
+          <button onClick={onClose} className="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Close modal"><CloseIcon className="w-5 h-5" /></button>
         </div>
         <div className="p-5">{children}</div>
         {footer && <div className="p-5 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">{footer}</div>}

@@ -1,13 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import Navbar from "../components/Navbar/Navbar.jsx";
+import { ShieldIcon, UsersIcon, BuildingIcon, TagIcon, CheckIcon, BarChartIcon } from "../components/icons/index.jsx";
 const links = [
-  { to: "/admin", label: "Overview", icon: "🛡️" },
-  { to: "/admin?tab=users", label: "Users", icon: "👥" },
-  { to: "/admin?tab=partners", label: "Partners", icon: "🏪" },
-  { to: "/admin?tab=listings", label: "Listings", icon: "📋" },
-  { to: "/admin?tab=approvals", label: "Approvals", icon: "✅" },
-  { to: "/admin?tab=reports", label: "Reports", icon: "📈" },
+  { to: "/admin", label: "Overview", icon: <ShieldIcon className="w-5 h-5" /> },
+  { to: "/admin?tab=users", label: "Users", icon: <UsersIcon className="w-5 h-5" /> },
+  { to: "/admin?tab=partners", label: "Partners", icon: <BuildingIcon className="w-5 h-5" /> },
+  { to: "/admin?tab=listings", label: "Listings", icon: <TagIcon className="w-5 h-5" /> },
+  { to: "/admin?tab=approvals", label: "Approvals", icon: <CheckIcon className="w-5 h-5" /> },
+  { to: "/admin?tab=reports", label: "Reports", icon: <BarChartIcon className="w-5 h-5" /> },
 ];
 export default function AdminLayout() {
   return (

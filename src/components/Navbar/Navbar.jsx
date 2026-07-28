@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { FiMenu, FiX, FiBell, FiUser } from "react-icons/fi";
+import { MenuIcon, CloseIcon, BellIcon, UserIcon } from "../icons/index.jsx";
 import ThemeToggle from "../ThemeToggle/ThemeToggle.jsx";
 import useAuth from "../../hooks/useAuth.js";
 import { NAV_LINKS } from "../../utils/constants.js";
@@ -31,13 +31,13 @@ export default function Navbar() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Link to="/notifications" className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hidden sm:inline-flex">
-            <FiBell />
+          <Link to="/notifications" className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hidden sm:inline-flex" aria-label="Notifications">
+            <BellIcon className="w-5 h-5" />
           </Link>
           {isAuthenticated ? (
             <div className="hidden md:flex items-center gap-2">
               <Link to="/profile" className="btn-ghost text-sm flex items-center gap-2">
-                <FiUser /> {user?.name?.split(" ")[0]}
+                <UserIcon className="w-4 h-4" /> {user?.name?.split(" ")[0]}
               </Link>
               <button onClick={logout} className="btn-primary text-sm">Logout</button>
             </div>
@@ -48,7 +48,7 @@ export default function Navbar() {
             </div>
           )}
           <button className="md:hidden p-2" onClick={() => setOpen((o) => !o)} aria-label="Menu">
-            {open ? <FiX size={22} /> : <FiMenu size={22} />}
+            {open ? <CloseIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
           </button>
         </div>
       </div>

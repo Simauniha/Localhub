@@ -1,6 +1,7 @@
 import { useState } from "react";
 import partnerService from "../services/partnerService.js";
 import useNotify from "../hooks/useNotify.js";
+import { CheckIcon } from "../components/icons/index.jsx";
 export default function PartnerRegister() {
   const [form, setForm] = useState({ business: "", owner: "", phone: "", category: "Restaurant", address: "" });
   const [loading, setLoading] = useState(false);
@@ -21,10 +22,10 @@ export default function PartnerRegister() {
         <h1 className="mt-4 text-4xl font-extrabold">Grow your local business with LocalHub</h1>
         <p className="mt-3 text-slate-600 dark:text-slate-300">List your business, launch deals, sell tickets, and reach 500k+ nearby customers.</p>
         <ul className="mt-6 space-y-3 text-sm">
-          <li className="flex gap-3"><span>✅</span>Zero setup fee — pay only per redemption</li>
-          <li className="flex gap-3"><span>✅</span>Analytics dashboard & customer insights</li>
-          <li className="flex gap-3"><span>✅</span>QR redemption, no POS integration needed</li>
-          <li className="flex gap-3"><span>✅</span>Marketing across app, web & push</li>
+          <li className="flex items-center gap-3"><CheckIcon className="w-5 h-5 text-emerald-500 shrink-0" />Zero setup fee — pay only per redemption</li>
+          <li className="flex items-center gap-3"><CheckIcon className="w-5 h-5 text-emerald-500 shrink-0" />Analytics dashboard & customer insights</li>
+          <li className="flex items-center gap-3"><CheckIcon className="w-5 h-5 text-emerald-500 shrink-0" />QR redemption, no POS integration needed</li>
+          <li className="flex items-center gap-3"><CheckIcon className="w-5 h-5 text-emerald-500 shrink-0" />Marketing across app, web & push</li>
         </ul>
       </div>
       <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 shadow-xl">

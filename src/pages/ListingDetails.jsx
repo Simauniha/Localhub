@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FiStar, FiMapPin, FiPhone, FiClock } from "react-icons/fi";
+import { StarIcon, MapPinIcon, PhoneIcon, ClockIcon, MapIcon } from "../components/icons/index.jsx";
 import Loader from "../components/Loader/Loader.jsx";
 import Breadcrumb from "../components/Breadcrumb/Breadcrumb.jsx";
 import ReviewCard from "../components/ReviewCard/ReviewCard.jsx";
@@ -34,23 +34,23 @@ export default function ListingDetails() {
         <div>
           <h1 className="text-3xl font-extrabold">{data.name}</h1>
           <div className="mt-2 flex items-center gap-3 text-sm">
-            <span className="flex items-center gap-1 font-bold"><FiStar className="text-amber-500" /> {data.rating}</span>
+            <span className="flex items-center gap-1 font-bold"><StarIcon className="w-4 h-4 text-amber-500" /> {data.rating}</span>
             <span className="text-slate-500">({data.reviews} reviews)</span>
             <span className="text-slate-500">· {data.price}</span>
           </div>
           <p className="mt-4 text-slate-600 dark:text-slate-300">{data.desc}</p>
           <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-            <div className="flex items-start gap-2"><FiMapPin className="mt-0.5 text-brand" /> {data.address}</div>
-            <div className="flex items-start gap-2"><FiPhone className="mt-0.5 text-brand" /> {data.phone}</div>
-            <div className="flex items-start gap-2 sm:col-span-2"><FiClock className="mt-0.5 text-brand" /> {data.hours}</div>
+            <div className="flex items-start gap-2"><MapPinIcon className="w-4 h-4 mt-0.5 text-brand shrink-0" /> {data.address}</div>
+            <div className="flex items-start gap-2"><PhoneIcon className="w-4 h-4 mt-0.5 text-brand shrink-0" /> {data.phone}</div>
+            <div className="flex items-start gap-2 sm:col-span-2"><ClockIcon className="w-4 h-4 mt-0.5 text-brand shrink-0" /> {data.hours}</div>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <button onClick={() => { setModal(true); }} className="btn-primary">Book now</button>
             <Link to="/qr" className="btn-ghost">Redeem offer</Link>
           </div>
           {/* Map placeholder */}
-          <div className="mt-6 h-48 rounded-2xl bg-gradient-to-br from-slate-200 to-slate-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center text-slate-500">
-            🗺️ Map preview
+          <div className="mt-6 h-48 rounded-2xl bg-gradient-to-br from-slate-200 to-slate-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center gap-2 text-slate-500">
+            <MapIcon className="w-5 h-5" /> Map preview
           </div>
         </div>
       </div>

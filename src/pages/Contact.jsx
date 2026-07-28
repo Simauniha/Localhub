@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useNotify from "../hooks/useNotify.js";
+import { MailIcon, PhoneIcon, MapPinIcon } from "../components/icons/index.jsx";
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const { notify } = useNotify();
@@ -15,9 +16,9 @@ export default function Contact() {
         <h1 className="text-4xl font-extrabold">Get in touch</h1>
         <p className="mt-3 text-slate-600 dark:text-slate-300">We usually respond within one business day.</p>
         <ul className="mt-6 space-y-3 text-sm">
-          <li>📧 hello@localhub.app</li>
-          <li>📞 +91 98765 43210</li>
-          <li>📍 100 Innov8 St, Bengaluru</li>
+          <li className="flex items-center gap-2"><MailIcon className="w-4 h-4 text-brand" /> hello@localhub.app</li>
+          <li className="flex items-center gap-2"><PhoneIcon className="w-4 h-4 text-brand" /> +91 98765 43210</li>
+          <li className="flex items-center gap-2"><MapPinIcon className="w-4 h-4 text-brand" /> 100 Innov8 St, Bengaluru</li>
         </ul>
       </div>
       <form onSubmit={onSubmit} className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700 space-y-4">

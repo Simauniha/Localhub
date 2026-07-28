@@ -4,6 +4,7 @@ import Loader from "../components/Loader/Loader.jsx";
 import adminService from "../services/adminService.js";
 import useNotify from "../hooks/useNotify.js";
 import { formatCurrency } from "../utils/helpers.js";
+import { UsersIcon, BuildingIcon, TagIcon, DollarIcon } from "../components/icons/index.jsx";
 export default function AdminDashboard() {
   const [stats, setStats] = useState(null);
   const { notify } = useNotify();
@@ -15,10 +16,10 @@ export default function AdminDashboard() {
       <h1 className="text-3xl font-extrabold">Admin overview</h1>
       <p className="text-slate-500 mt-1">Platform health at a glance.</p>
       <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <AnalyticsCard label="Users" value={stats.users.toLocaleString()} delta={11} icon="👥" tone="sky" />
-        <AnalyticsCard label="Partners" value={stats.partners} delta={7} icon="🏪" tone="rose" />
-        <AnalyticsCard label="Listings" value={stats.listings} delta={4} icon="📋" tone="amber" />
-        <AnalyticsCard label="Revenue" value={formatCurrency(stats.revenue)} delta={18} icon="💰" tone="emerald" />
+        <AnalyticsCard label="Users" value={stats.users.toLocaleString()} delta={11} icon={<UsersIcon className="w-5 h-5" />} tone="sky" />
+        <AnalyticsCard label="Partners" value={stats.partners} delta={7} icon={<BuildingIcon className="w-5 h-5" />} tone="rose" />
+        <AnalyticsCard label="Listings" value={stats.listings} delta={4} icon={<TagIcon className="w-5 h-5" />} tone="amber" />
+        <AnalyticsCard label="Revenue" value={formatCurrency(stats.revenue)} delta={18} icon={<DollarIcon className="w-5 h-5" />} tone="emerald" />
       </div>
       <div className="mt-8 grid lg:grid-cols-2 gap-6">
         <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700">

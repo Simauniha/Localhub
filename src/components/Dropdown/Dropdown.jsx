@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FiChevronDown } from "react-icons/fi";
+import { ChevronDownIcon } from "../icons/index.jsx";
 export default function Dropdown({ label, options = [], value, onChange }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -16,7 +16,7 @@ export default function Dropdown({ label, options = [], value, onChange }) {
         onClick={() => setOpen((o) => !o)}
         className="btn-ghost text-sm flex items-center gap-2"
       >
-        {selected?.label || label} <FiChevronDown />
+        {selected?.label || label} <ChevronDownIcon className="w-4 h-4" />
       </button>
       {open && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 py-1 z-30">
