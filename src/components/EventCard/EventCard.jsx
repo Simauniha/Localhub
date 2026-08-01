@@ -1,5 +1,23 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import eventService from "../../services/eventService.js";
+import useNotify from "../../hooks/useNotify.js";
+
 export default function EventCard({ event }) {
+  const navigate = useNavigate();
+  const { notify } = useNotify();
+
+  const handleClaimTicket = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await eventService.claim(event.id, 1);
+      notify("Ticket claimed successfully! 🎉", "success");
+      navigate(`/qr?ticketCode=${res.ticketCode}`);
+    } catch (err) {
+      const msg = err?.response?.data?.message || "Failed to claim ticket. Please log in first.";
+      notify(msg, "error");
+    }
+  };
+
   return (
     <article className="card-hover bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700">
       <div className="relative">
@@ -13,7 +31,9 @@ export default function EventCard({ event }) {
         <h3 className="mt-1 font-bold text-lg">{event.title}</h3>
         <div className="mt-3 flex items-center justify-between">
           <span className="font-extrabold text-brand-gradient">{event.price}</span>
-          <Link to="/qr" className="btn-primary text-xs">{event.free ? "Claim ticket" : "Book now"}</Link>
+          <button onClick={handleClaimTicket} className="btn-primary text-xs">
+            {event.free ? "Claim ticket" : "Book now"}
+          </button>
         </div>
       </div>
     </article>

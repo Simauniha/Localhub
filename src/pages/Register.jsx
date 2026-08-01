@@ -17,14 +17,21 @@ export default function Register() {
     }
     setLoading(true);
     try {
-      await register(form);
+      await register({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+        phone: form.phone,
+      });
       notify("Account created 🎉", "success");
       navigate("/dashboard");
-    } catch {
-      notify("Registration failed", "error");
+    } catch (err) {
+      const msg = err?.response?.data?.message || "Registration failed. Try again.";
+      notify(msg, "error");
     } finally {
       setLoading(false);
     }
+
   };
   return (
     <div className="min-h-screen bg-hero-gradient flex items-center justify-center p-6">

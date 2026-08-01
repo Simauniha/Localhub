@@ -11,36 +11,48 @@ import { CATEGORIES } from "../utils/constants.js";
 import listingService from "../services/listingService.js";
 import dealService from "../services/dealService.js";
 import eventService from "../services/eventService.js";
-import { TagIcon, TicketIcon } from "../components/icons/index.jsx";
+import placesService from "../services/placesService.js";
+import { TagIcon, TicketIcon, MapPinIcon } from "../components/icons/index.jsx";
+
 const testimonials = [
   { name: "Aarav S.", role: "Foodie", text: "Found the best pizza in town — and got 50% off!", avatar: "A" },
   { name: "Meera K.", role: "Student", text: "Booked my coding bootcamp with a BOGO deal. Life-saver.", avatar: "M" },
   { name: "Rohan M.", role: "Traveler", text: "Every weekend plan starts on LocalHub now.", avatar: "R" },
 ];
+
 export default function Home() {
   const [listings, setListings] = useState([]);
   const [deals, setDeals] = useState([]);
   const [events, setEvents] = useState([]);
+  const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const { notify } = useNotify();
+
   useEffect(() => {
     (async () => {
-      const [l, d, e] = await Promise.all([
-        listingService.list({ pageSize: 4 }),
-        dealService.list(),
-        eventService.list(),
-      ]);
-      setListings(l.items);
-      setDeals(d.slice(0, 3));
-      setEvents(e.slice(0, 3));
-      setLoading(false);
+      try {
+        const [l, d, e, places] = await Promise.all([
+          listingService.list({ pageSize: 4 }).catch(() => ({ items: [] })),
+          dealService.list().catch(() => []),
+          eventService.list().catch(() => []),
+          placesService.getNearbyPlaces().catch(() => []),
+        ]);
+        setListings(l.items || []);
+        setDeals((d || []).slice(0, 3));
+        setEvents((e || []).slice(0, 3));
+        setNearbyPlaces((places || []).slice(0, 4));
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
+
   const onNewsletter = (e) => {
     e.preventDefault();
     notify("Subscribed! Check your inbox 🎉", "success");
     e.currentTarget.reset();
   };
+
   return (
     <div className="fade-in">
       <Hero />
@@ -57,6 +69,7 @@ export default function Home() {
           {CATEGORIES.map((c) => <CategoryCard key={c.id} category={c} />)}
         </div>
       </section>
+
       {/* Featured Deals */}
       <section className="bg-slate-100 dark:bg-slate-900 py-16">
         <div className="max-w-7xl mx-auto px-4">
@@ -74,6 +87,7 @@ export default function Home() {
           )}
         </div>
       </section>
+
       {/* Popular restaurants */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-end justify-between mb-8">
@@ -89,8 +103,39 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      {/* Nearby External Places */}
+      {nearbyPlaces.length > 0 && (
+        <section className="bg-slate-50 dark:bg-slate-800/50 py-16 border-y border-slate-100 dark:border-slate-800">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <h2 className="text-3xl font-extrabold flex items-center gap-2">
+                  <MapPinIcon className="w-7 h-7 text-emerald-500" /> Nearby places around you
+                </h2>
+                <p className="text-slate-500 mt-1">Discovered via location search API.</p>
+              </div>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {nearbyPlaces.map((p) => (
+                <div key={p.id || p.placeId} className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 shadow-sm card-hover">
+                  <div className="text-xs text-brand font-semibold uppercase tracking-wider">{p.category || p.type || "Local Place"}</div>
+                  <h3 className="font-bold text-base mt-1 text-slate-800 dark:text-slate-100">{p.name || p.title}</h3>
+                  <div className="text-xs text-slate-500 mt-2">{p.address || p.location}</div>
+                  {p.distanceKm !== undefined && (
+                    <div className="mt-3 inline-block text-xs bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-300 font-semibold px-2.5 py-1 rounded-md">
+                      {p.distanceKm} km away
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Coaching + Transport banners */}
-      <section className="max-w-7xl mx-auto px-4 pb-16 grid md:grid-cols-2 gap-6">
+      <section className="max-w-7xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-6">
         <Link to="/listings?category=coaching" className="card-hover rounded-3xl p-8 bg-gradient-to-br from-indigo-600 to-fuchsia-600 text-white">
           <div className="text-sm opacity-90 font-medium">Coaching institutes</div>
           <div className="text-3xl font-extrabold mt-2">Level up your career</div>
@@ -104,6 +149,7 @@ export default function Home() {
           <span className="mt-6 inline-flex items-center gap-2 bg-white text-indigo-700 hover:bg-slate-100 font-bold px-6 py-3 rounded-xl shadow-md transition-all">Book now →</span>
         </Link>
       </section>
+
       {/* Upcoming events */}
       <section className="bg-slate-100 dark:bg-slate-900 py-16">
         <div className="max-w-7xl mx-auto px-4">
@@ -121,6 +167,7 @@ export default function Home() {
           )}
         </div>
       </section>
+
       {/* Testimonials */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-extrabold text-center">What locals say</h2>
@@ -139,6 +186,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+
       {/* Download app */}
       <section className="max-w-7xl mx-auto px-4 pb-16">
         <div className="rounded-3xl p-10 md:p-14 bg-brand-gradient text-white grid md:grid-cols-2 gap-8 items-center">
@@ -153,6 +201,7 @@ export default function Home() {
           <div className="text-center text-8xl md:text-9xl">📲</div>
         </div>
       </section>
+
       {/* Newsletter */}
       <section className="max-w-3xl mx-auto px-4 pb-20 text-center">
         <h3 className="text-2xl font-extrabold">Stay in the loop</h3>

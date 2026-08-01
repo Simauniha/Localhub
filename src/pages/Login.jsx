@@ -10,16 +10,23 @@ export default function Login() {
   const { notify } = useNotify();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await login(email, password);
+      const user = await login(email, password);
       notify("Welcome back! 👋", "success");
-      navigate(from, { replace: true });
-    } catch {
-      notify("Login failed. Try again.", "error");
+      const target = location.state?.from?.pathname || (
+        user?.role === "ADMIN"
+          ? "/admin"
+          : user?.role === "PARTNER"
+          ? "/partner/dashboard"
+          : "/dashboard"
+      );
+      navigate(target, { replace: true });
+    } catch (err) {
+      const msg = err?.response?.data?.message || "Login failed. Please check your credentials.";
+      notify(msg, "error");
     } finally {
       setLoading(false);
     }

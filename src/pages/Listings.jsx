@@ -23,12 +23,20 @@ export default function Listings() {
   const pageSize = 8;
   useEffect(() => {
     setLoading(true);
-    listingService.list({ category, q, page, pageSize }).then((r) => {
-      setItems(r.items);
-      setTotal(r.total);
-      setLoading(false);
-    });
+    listingService
+      .list({ category, q, page, pageSize })
+      .then((r) => {
+        setItems(r.items || []);
+        setTotal(r.total || 0);
+        setLoading(false);
+      })
+      .catch(() => {
+        setItems([]);
+        setTotal(0);
+        setLoading(false);
+      });
   }, [category, q, page]);
+
   const sorted = useMemo(() => {
     const arr = [...items];
     if (sort === "rating") arr.sort((a, b) => b.rating - a.rating);

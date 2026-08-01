@@ -55,27 +55,39 @@ export default function ListingDetails() {
         </div>
       </div>
       {/* Offers */}
-      <section className="mt-10">
-        <h2 className="text-2xl font-extrabold">Live offers</h2>
-        <div className="mt-4 grid md:grid-cols-2 gap-4">
-          {data.offers.map((o) => (
-            <div key={o.code} className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 flex justify-between items-center">
-              <div>
-                <div className="font-bold">{o.title}</div>
-                <div className="text-xs text-slate-500 mt-1">Code {o.code} · Expires {o.expiry}</div>
+      {(data.offers && data.offers.length > 0) && (
+        <section className="mt-10">
+          <h2 className="text-2xl font-extrabold">Live offers</h2>
+          <div className="mt-4 grid md:grid-cols-2 gap-4">
+            {data.offers.map((o) => (
+              <div key={o.code || o.title} className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                <div>
+                  <div className="font-bold">{o.title}</div>
+                  <div className="text-xs text-slate-500 mt-1">Code {o.code} · Expires {o.expiry}</div>
+                </div>
+                <Link to="/qr" className="btn-primary text-sm">Redeem</Link>
               </div>
-              <Link to="/qr" className="btn-primary text-sm">Redeem</Link>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
       {/* Reviews */}
-      <section className="mt-10">
-        <h2 className="text-2xl font-extrabold">Reviews</h2>
-        <div className="mt-4 grid md:grid-cols-3 gap-4">
-          {data.reviews.map((r, i) => <ReviewCard key={i} review={r} />)}
-        </div>
-      </section>
+      {(data.reviewsList && data.reviewsList.length > 0) ? (
+        <section className="mt-10">
+          <h2 className="text-2xl font-extrabold">Reviews</h2>
+          <div className="mt-4 grid md:grid-cols-3 gap-4">
+            {data.reviewsList.map((r, i) => <ReviewCard key={i} review={r} />)}
+          </div>
+        </section>
+      ) : (Array.isArray(data.reviews) && data.reviews.length > 0) && (
+        <section className="mt-10">
+          <h2 className="text-2xl font-extrabold">Reviews</h2>
+          <div className="mt-4 grid md:grid-cols-3 gap-4">
+            {data.reviews.map((r, i) => <ReviewCard key={i} review={r} />)}
+          </div>
+        </section>
+      )}
+
       <Modal
         open={modal}
         onClose={() => setModal(false)}

@@ -8,7 +8,7 @@ export default function AnalyticsCard({ label, value, delta, icon, tone = "rose"
   return (
     <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 card-hover">
       <div className="flex items-center justify-between">
-        <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${tones[tone]} text-white grid place-items-center text-lg`}>
+        <div className={`w-11 h-11 rounded-xl bg-linear-to-br ${tones[tone]} text-white grid place-items-center text-lg`}>
           {icon}
         </div>
         {delta != null && (

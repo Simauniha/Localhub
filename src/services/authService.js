@@ -1,19 +1,36 @@
-import { sleep } from "../utils/helpers.js";
-// import api from "./api.js"; // wire up when Spring Boot is ready
+import api from "./api.js";
+
 const authService = {
   async login(email, password) {
-    await sleep(400);
-    // return (await api.post("/auth/login", { email, password })).data;
-    return { id: 1, name: "Demo User", email, token: "mock-token", role: "user" };
+    const res = await api.post("/auth/login", { email, password });
+    const data = res.data;
+    const userObj = {
+      ...data.user,
+      token: data.token,
+      tokenType: data.tokenType || "Bearer",
+    };
+    return userObj;
   },
+
   async register(data) {
-    await sleep(400);
-    // return (await api.post("/auth/register", data)).data;
-    return { id: 2, name: data.name || "New User", email: data.email, token: "mock-token", role: "user" };
+    const res = await api.post("/auth/register", data);
+    const resData = res.data;
+    const userObj = {
+      ...resData.user,
+      token: resData.token,
+      tokenType: resData.tokenType || "Bearer",
+    };
+    return userObj;
   },
+
+  async me() {
+    const res = await api.get("/auth/me");
+    return res.data;
+  },
+
   async forgotPassword(email) {
-    await sleep(300);
     return { ok: true, email };
   },
 };
+
 export default authService;

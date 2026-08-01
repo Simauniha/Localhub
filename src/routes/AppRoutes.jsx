@@ -22,6 +22,7 @@ import Contact from "../pages/Contact.jsx";
 import Privacy from "../pages/Privacy.jsx";
 import Terms from "../pages/Terms.jsx";
 import NotFound from "../pages/NotFound.jsx";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -44,10 +45,10 @@ export default function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/partner/dashboard" element={<ProtectedRoute><PartnerDashboard /></ProtectedRoute>} />
+        <Route path="/partner/dashboard" element={<ProtectedRoute roles={["PARTNER", "ADMIN"]}><PartnerDashboard /></ProtectedRoute>} />
       </Route>
       <Route element={<AdminLayout />}>
-        <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute roles={["ADMIN"]}><AdminDashboard /></ProtectedRoute>} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

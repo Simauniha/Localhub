@@ -1,20 +1,39 @@
 import { useState } from "react";
 import partnerService from "../services/partnerService.js";
 import useNotify from "../hooks/useNotify.js";
+import useAuth from "../hooks/useAuth.js";
 import { CheckIcon } from "../components/icons/index.jsx";
+
 export default function PartnerRegister() {
-  const [form, setForm] = useState({ business: "", owner: "", phone: "", category: "Restaurant", address: "" });
+  const { user } = useAuth();
+  const [form, setForm] = useState({ business: "", phone: "", category: "Restaurant", address: "" });
   const [loading, setLoading] = useState(false);
   const { notify } = useNotify();
+
   const change = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await partnerService.register(form);
-    setLoading(false);
-    notify("Application submitted 🎉", "success");
-    setForm({ business: "", owner: "", phone: "", category: "Restaurant", address: "" });
+    try {
+      await partnerService.register({
+        businessName: form.business,
+        businessType: form.category,
+        contactEmail: user?.email || "",
+        contactPhone: form.phone,
+        address: form.address,
+        city: user?.city || "Mohali",
+      });
+      notify("Partner profile saved! 🎉", "success");
+      setForm({ business: "", phone: "", category: "Restaurant", address: "" });
+    } catch (err) {
+      const msg = err?.response?.data?.message || "Partner registration failed. Make sure you are logged in as a Partner.";
+      notify(msg, "error");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 grid lg:grid-cols-2 gap-10 items-start fade-in">
       <div>
@@ -34,10 +53,6 @@ export default function PartnerRegister() {
           <div>
             <label className="text-sm font-semibold">Business name</label>
             <input required value={form.business} onChange={change("business")} className="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 outline-none focus:border-brand" />
-          </div>
-          <div>
-            <label className="text-sm font-semibold">Owner name</label>
-            <input required value={form.owner} onChange={change("owner")} className="mt-1 w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 outline-none focus:border-brand" />
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
