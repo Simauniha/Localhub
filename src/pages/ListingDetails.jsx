@@ -49,7 +49,7 @@ export default function ListingDetails() {
             <Link to="/qr" className="btn-ghost">Redeem offer</Link>
           </div>
           {/* Map placeholder */}
-          <div className="mt-6 h-48 rounded-2xl bg-gradient-to-br from-slate-200 to-slate-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center gap-2 text-slate-500">
+          <div className="mt-6 h-48 rounded-2xl bg-linear-to-br from-slate-200 to-slate-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center gap-2 text-slate-500">
             <MapIcon className="w-5 h-5" /> Map preview
           </div>
         </div>
