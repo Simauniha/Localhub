@@ -2,13 +2,13 @@ package com.localhub.backend.security.jwt;
 
 import com.localhub.backend.security.UserPrincipal;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
@@ -20,9 +20,7 @@ public class JwtTokenProvider {
     public JwtTokenProvider(
             @Value("${app.jwt.secret:default_jwt_secret_key_change_in_production_1234567890}") String jwtSecret,
             @Value("${app.jwt.expiration-ms:86400000}") long jwtExpirationInMs) {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret.length() < 32 ?
-                java.util.Base64.getEncoder().encodeToString(jwtSecret.getBytes()) : jwtSecret);
-        this.key = Keys.hmacShaKeyFor(keyBytes);
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
         this.jwtExpirationInMs = jwtExpirationInMs;
     }
 
