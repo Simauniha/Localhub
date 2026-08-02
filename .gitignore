@@ -38,4 +38,3 @@ application-local.yml
 
 # IDE
 *.iml
-backend/src/main/resources/application.properties

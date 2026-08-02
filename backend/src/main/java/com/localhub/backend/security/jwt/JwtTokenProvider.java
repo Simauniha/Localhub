@@ -18,7 +18,7 @@ public class JwtTokenProvider {
     private final long jwtExpirationInMs;
 
     public JwtTokenProvider(
-            @Value("${app.jwt.secret}") String jwtSecret,
+            @Value("${app.jwt.secret:default_jwt_secret_key_change_in_production_1234567890}") String jwtSecret,
             @Value("${app.jwt.expiration-ms:86400000}") long jwtExpirationInMs) {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret.length() < 32 ?
                 java.util.Base64.getEncoder().encodeToString(jwtSecret.getBytes()) : jwtSecret);
